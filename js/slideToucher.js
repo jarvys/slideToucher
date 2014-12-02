@@ -1,33 +1,7 @@
-/*********
-
-The MIT License (MIT)
-Copyright (c) 2013 Jurijs Petusko | Yuri Petusko | yuripetusko@gmail.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
-to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-Credits:
-Plugin is loosely based on tutorial by Martin Kool https://twitter.com/mrtnkl
-http://mobile.smashingmagazine.com/2012/06/21/play-with-hardware-accelerated-css/
-
-Very clever way iScroll plugin works out your vendor prefix.
-Credits to Matteo Spinelli, http://cubiq.org
-
-************/
-
-// the semi-colon before function invocation is a safety net against concatenated
-// scripts and/or other plugins which may not be closed properly.
-;(function ($, window, document, undefined) {
+(function ($, window, document, undefined) {
 
     function slideToucher(el, options) {
-        /*
-            Defiantly too many variables here. Need to find a way to reduce 'em
-        */
+        
         var plugin = this;
 
         plugin.el = el;
