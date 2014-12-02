@@ -39,14 +39,3 @@ body {
 	text-align:center;
 }
 
-.arrow {
-	position:absolute;
-	z-index:2;
-	top: 10px;
-	background: url(../img/arrow.png) center no-repeat transparent;
-	width:64px;
-	height:64px;
-	-webkit-background-size:50%;
-	-moz-background-size:50%;
-	background-size:50%;
-}

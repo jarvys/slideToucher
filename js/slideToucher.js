@@ -1,7 +1,7 @@
-(function ($, window, document, undefined) {
+(function($, window, document, undefined) {
 
     function slideToucher(el, options) {
-        
+
         var plugin = this;
 
         plugin.el = el;
@@ -42,7 +42,7 @@
             /* Anyone in here? */
         }
 
-        plugin.init = function () {
+        plugin.init = function() {
             plugin.options = $.extend({
                 vertical: false,
                 horizontal: true,
@@ -66,7 +66,7 @@
             $row.eq(plugin.vertical.currentSlide).addClass("current-row").find(".slide").eq(plugin.horizontal.currentSlide).addClass("current");
         };
 
-        plugin.getTransitionTime = function (downPos, upPos, downPosTime, upPosTime, dir) {
+        plugin.getTransitionTime = function(downPos, upPos, downPosTime, upPosTime, dir) {
             /*
                 calculates the transition time from the speed of the swipe.
                 THIS IS BAD. I DON'T THINK THAT I KNOW WHAT i'M DOIJNG HERE. NEED TO LOOK INTO IT.
@@ -86,15 +86,15 @@
                 Credits to Matteo Spinelli, http://cubiq.org
             */
             var dummyStyle = document.createElement('div').style;
-            plugin.vendor = (function () {
+            plugin.vendor = (function() {
                 var vendors = 't,webkitT,MozT,msT,OT'.split(','),
-                t,
-                i = 0,
-                l = vendors.length;
+                    t,
+                    i = 0,
+                    l = vendors.length;
 
-                for ( ; i < l; i++ ) {
+                for (; i < l; i++) {
                     t = vendors[i] + 'ransform';
-                    if ( t in dummyStyle ) {
+                    if (t in dummyStyle) {
                         return vendors[i].substr(0, vendors[i].length - 1);
                     }
                 }
@@ -110,23 +110,23 @@
         };
 
         plugin.prefixStyle = function(style) {
-            if ( plugin.vendor === '' ) return style;
+            if (plugin.vendor === '') return style;
 
             style = style.charAt(0).toUpperCase() + style.substr(1);
             return plugin.vendor + style;
         };
 
-        plugin.setWidth = function () {
+        plugin.setWidth = function() {
             /*
                 Setting with of parent container to number of slides in first row * first slide width.
                 This will not work very well if other rows has  different number of slides.
             */
-            plugin.$el.css("width", plugin.options.sliderWidth  * $row.eq(0).find(".slide").length);
+            plugin.$el.css("width", plugin.options.sliderWidth * $row.eq(0).find(".slide").length);
             $slide.css("width", slideWidth);
-            
+
         };
 
-        plugin.recordDimensions = function(){
+        plugin.recordDimensions = function() {
             sliderWidth = plugin.options.sliderWidth;
             slideHeight = $row.height();
 
@@ -146,12 +146,12 @@
             plugin.horizontal.pixelOffset = plugin.horizontal.currentSlide * -sliderWidth;
         };
 
-        plugin.bindEvents = function () {
+        plugin.bindEvents = function() {
             plugin.$el.on('touchstart', plugin.slideStart);
             plugin.$el.on('touchmove', plugin.slide);
             plugin.$el.on('touchend', plugin.slideEnd);
 
-            plugin.$el.bind(plugin.transitionEnd, function (event) {
+            plugin.$el.bind(plugin.transitionEnd, function(event) {
                 event.stopPropagation();
                 if (event.target !== $(this)[0]) return;
 
@@ -170,7 +170,7 @@
             plugin.$el.trigger(plugin.transitionEnd);
         };
 
-        plugin.slideStart = function (event) {
+        plugin.slideStart = function(event) {
             /*
                 Register position on touch start
             */
@@ -197,7 +197,7 @@
             }
         };
 
-        plugin.slide = function (event) {
+        plugin.slide = function(event) {
             /*
                 Drag slide on touchmove
             */
@@ -246,16 +246,16 @@
 
                 plugin[slideType].pixelOffset = startPixelOffset + deltaSlide / touchPixelRatio;
 
-                if (slideType === "horizontal") {
-                    cachedElStyle[plugin.transform] = 'translate3d(' + plugin[slideType].pixelOffset + 'px, ' + offsetTop + 'px, 0)';
-                } else if (slideType === "vertical") {
+                // if (slideType === "horizontal") {
+                // cachedElStyle[plugin.transform] = 'translate3d(' + plugin[slideType].pixelOffset + 'px, ' + offsetTop + 'px, 0)';
+                // } else if (slideType === "vertical") {
+                if (slideType === "vertical") {
                     cachedElStyle[plugin.transform] = 'translate3d(' + offsetLeft + 'px, ' + plugin[slideType].pixelOffset + 'px, 0)';
                 }
-
             }
         };
 
-        plugin.slideEnd = function (event) {
+        plugin.slideEnd = function(event) {
             /*
                 Finish slide transition on touchend
             */
@@ -283,9 +283,9 @@
         plugin.init();
     }
 
-    $.fn.slideToucher = function (options) {  
+    $.fn.slideToucher = function(options) {
         /* At the moment I am rebuilding plugin from scratch if called twice, need to create destroy and refresh methods for more flexibility */
-        return this.each(function () {
+        return this.each(function() {
             new slideToucher(this, options)
         });
     };
