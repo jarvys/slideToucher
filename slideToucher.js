@@ -165,7 +165,9 @@
                 plugin.$el.trigger("slideShow", [plugin.vertical.currentSlide]);
             });
 
-            plugin.$el.trigger(plugin.transitionEnd);
+            setTimeout(function() {
+                plugin.$el.trigger(plugin.transitionEnd);
+            }, 0);
         };
 
         plugin.slideStart = function(event) {

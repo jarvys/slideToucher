@@ -6,6 +6,7 @@ $("document").ready(function(){
 		number.appendChild(numberNode);
 		element.appendChild(number);
 	    element.style.backgroundColor = 'hsla(' + hue + ', 75%, 50%, 0.5)';
+	    $(number).hide();
 	    hue += 222.5;
 	});
 
@@ -14,8 +15,10 @@ $("document").ready(function(){
 	$("#slides").slideToucher({
 		vertical: true
 	}).on('slideShow', function(e, slide) {
+		$("#slides").find('.slide').eq(slide).find('span').fadeIn();
 		console.log('sliderShow', slide);
 	}).on('slideHide', function(e, slide) {
+		$("#slides").find('.slide').eq(slide).find('span').hide();
 		console.log('slideHide', slide);
 	});
 });
