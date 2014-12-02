@@ -106,7 +106,7 @@
             // Style properties
             plugin.transform = plugin.prefixStyle('transform');
             plugin.transitionDuration = plugin.prefixStyle('transitionDuration');
-            plugin.transitionEnd = plugin.prefixStyle('TransitionEnd');
+            plugin.transitionEnd = plugin.prefixStyle('transitionend');
         };
 
         plugin.prefixStyle = function(style) {
@@ -155,9 +155,6 @@
                 event.stopPropagation();
                 if (event.target !== $(this)[0]) return;
 
-                /*
-                    Need to come up with less expensive selectors.
-                */
                 $row.filter(".current-row").removeClass("current-row");
                 $row.eq(plugin.vertical.currentSlide).addClass("current-row");
 
@@ -165,6 +162,7 @@
                 $row.filter(".current-row").find(".slide").eq(plugin.horizontal.currentSlide).addClass("current");
 
                 plugin.$el.trigger("slideToucherTransitionCompleted");
+                plugin.$el.trigger("slideShow", [plugin.vertical.currentSlide]);
             });
 
             plugin.$el.trigger(plugin.transitionEnd);
@@ -256,13 +254,15 @@
         };
 
         plugin.slideEnd = function(event) {
-            /*
-                Finish slide transition on touchend
-            */
             if (sliding == 2) {
                 sliding = 0;
+                var _previousSlide = plugin[slideType].currentSlide;
                 plugin[slideType].currentSlide = plugin[slideType].pixelOffset < startPixelOffset ? plugin[slideType].currentSlide + 1 : plugin[slideType].currentSlide - 1;
                 plugin[slideType].currentSlide = Math.min(Math.max(plugin[slideType].currentSlide, 0), plugin[slideType].slideCount - 1);
+
+                if (_previousSlide !== plugin[slideType].currentSlide) {
+                    plugin.$el.trigger("slideHide", [_previousSlide]);
+                }
 
                 plugin[slideType].pixelOffset = plugin[slideType].currentSlide * -plugin[slideType].slideSize;
 

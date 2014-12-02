@@ -13,5 +13,9 @@ $("document").ready(function(){
 
 	$("#slides").slideToucher({
 		vertical: true
+	}).on('slideShow', function(e, slide) {
+		console.log('sliderShow', slide);
+	}).on('slideHide', function(e, slide) {
+		console.log('slideHide', slide);
 	});
 });
